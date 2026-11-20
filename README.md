@@ -2,27 +2,46 @@
 
 **By Abatar Bhattarai**
 
-I analysed two full Premier League seasons — 2023/24 and 2024/25 — to look
-at scoring trends, home advantage, the best attacks and defences, and (as a
-Liverpool fan) how Liverpool went from third place to champions.
+## Business question
+
+What actually changed between the 2023/24 and 2024/25 Premier League seasons — in scoring, in home advantage, and at the top of the table — and what drove Liverpool from third place to champions?
+
+## Data
+
+Match results downloaded from [football-data.co.uk](https://www.football-data.co.uk), which publishes free CSV files of match data for research use: `data/E0_2023-24.csv` (380 matches) and `data/E0_2024-25.csv` (380 matches) — 760 matches in total. I only use the result columns (date, teams, goals, result) and ignore the betting odds columns in the files.
+
+## What I did
+
+- Cleaned and combined both seasons in Python (pandas) and computed every result in `analysis.py`
+- Answered the same questions in SQL (SQLite) — 5 queries covering top attacks, Liverpool's home record, highest-scoring months, home advantage by season, and most clean sheets
+- Built a per-team table for each season (position, W/D/L, goals, points, clean sheets) and saved the combined data as `matches_combined.csv` and a SQLite database
+- Made charts with matplotlib: monthly goals trend, goals per season, top attacks vs defences, and a Liverpool results breakdown
+
+## Key finding
+
+Across the 760 matches there were **2,361 goals (3.11 per match)** — but scoring fell from **3.28 goals per match in 2023/24 to 2.93 in 2024/25**, and home advantage shrank with it: home wins dropped from **46.1% to 40.8%**. Liverpool won the 2024/25 title with 84 points after finishing 3rd with 82 the season before — with identical goals for (86) and against (41) both seasons; the difference was at the back, where their clean sheets jumped from 10 to a league-best 14.
+
+## Recommendation
+
+Anyone previewing or predicting Premier League matches should weight home advantage less than they used to — it is measurably shrinking season over season. And Liverpool's title is a reminder that the gains can come from defence rather than attack: their scoring did not change at all, their clean sheets did.
+
+---
+
+I analysed two full Premier League seasons — 2023/24 and 2024/25 — to look at scoring trends, home advantage, the best attacks and defences, and (as a Liverpool fan) how Liverpool went from third place to champions.
 
 ## Data source
 
-Match results downloaded from [football-data.co.uk](https://www.football-data.co.uk),
-which publishes free CSV files of match data for research use:
+Match results downloaded from [football-data.co.uk](https://www.football-data.co.uk), which publishes free CSV files of match data for research use:
 
 - `data/E0_2023-24.csv` — 2023/24 season (380 matches)
 - `data/E0_2024-25.csv` — 2024/25 season (380 matches)
 
-Credit to football-data.co.uk for making this data available. I only use
-the result columns (date, teams, goals, result) and ignore the betting
-odds columns in the files.
+Credit to football-data.co.uk for making this data available. I only use the result columns (date, teams, goals, result) and ignore the betting odds columns in the files.
 
 ## Tools
 
 - **Python (pandas)** — cleaning, combining the seasons, all calculations
-- **SQL (SQLite)** — the same questions answered with queries against a
-  database built from the cleaned data
+- **SQL (SQLite)** — the same questions answered with queries against a database built from the cleaned data
 - **matplotlib** — charts
 
 ## Files
@@ -47,19 +66,11 @@ sqlite3 premier_league.db < queries.sql
 ## Headline findings
 
 - **760 matches, 2,361 goals, 3.11 goals per match** across the two seasons.
-- Scoring fell in 2024/25: **3.28 goals per match in 2023/24 down to 2.93**
-  in 2024/25, driven by home teams scoring less.
-- **Home advantage shrank**: home wins dropped from 46.1% (2023/24) to
-  40.8% (2024/25), while away wins and draws both rose.
-- **Best attacks:** Man City scored 96 in 2023/24; Liverpool scored 86 in
-  2024/25 and the most across both seasons combined (172).
-- **Best defence both seasons: Arsenal** (29 goals conceded in 2023/24,
-  34 in 2024/25), and the most clean sheets overall (31).
-- **Liverpool:** 3rd with 82 points in 2023/24, **champions with 84 points
-  in 2024/25** — with identical goals for (86) and against (41) in both
-  seasons. They lost just one home game each season, and their clean
-  sheets jumped from 10 to a league-best 14 in the title season.
-- The highest-scoring month in the dataset was **February 2024: 3.76
-  goals per match**.
+- Scoring fell in 2024/25: **3.28 goals per match in 2023/24 down to 2.93** in 2024/25, driven by home teams scoring less.
+- **Home advantage shrank**: home wins dropped from 46.1% (2023/24) to 40.8% (2024/25), while away wins and draws both rose.
+- **Best attacks:** Man City scored 96 in 2023/24; Liverpool scored 86 in 2024/25 and the most across both seasons combined (172).
+- **Best defence both seasons: Arsenal** (29 goals conceded in 2023/24, 34 in 2024/25), and the most clean sheets overall (31).
+- **Liverpool:** 3rd with 82 points in 2023/24, **champions with 84 points in 2024/25** — with identical goals for (86) and against (41) in both seasons. They lost just one home game each season, and their clean sheets jumped from 10 to a league-best 14 in the title season.
+- The highest-scoring month in the dataset was **February 2024: 3.76 goals per match**.
 
 Full write-up in `insights.md`.
